@@ -38,3 +38,8 @@
 .susy {
   @include span(2);
 }
+
+body {
+  background-color: $color-black;
+  color: $color-white;
+}
