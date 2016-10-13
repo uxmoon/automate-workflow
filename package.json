@@ -4,7 +4,7 @@
   "description": "Automate your workflow based on Zell Liew book",
   "main": "index.js",
   "scripts": {
-    "dev": "bower install && npm install && gulp",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
