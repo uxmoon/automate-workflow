@@ -10,6 +10,29 @@ var browserSync  = require('browser-sync');
 // Development Phase
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+// Display a visual notification when an error occurs
+// Error preventing for multiple plugins
+// Preventing Sass errors from breaking gulp watch
+function customPlumber(errTitle) {
+  if(process.env.CI){
+    return plumber({
+      errorHandler: notify.onError({
+        title: errTitle || "Error running Gulp",
+        message: "Error: <%= error.message %>",
+        sound: "Glass"
+      })
+    });
+  } else {
+    return plumber({
+      errorHandler: notify.onError({
+        title: errTitle || 'Error running Gulp',
+        message: 'Error: <%= error.message %>',
+      })
+    });
+  }
+
+}
+
 gulp.task('nunjucks', function(){
 
   // Dependencies
@@ -30,19 +53,6 @@ gulp.task('nunjucks', function(){
       stream: true
     }));
 });
-
-// Display a visual notification when an error occurs
-// Error preventing for multiple plugins
-// Preventing Sass errors from breaking gulp watch
-function customPlumber(errTitle) {
-  return plumber({
-    errorHandler: notify.onError({
-      title: errTitle || "Error running Gulp",
-      message: "Error: <%= error.message %>",
-      sound: "Glass"
-    })
-  });
-}
 
 // Sprites
 gulp.task('sprites', function() {
