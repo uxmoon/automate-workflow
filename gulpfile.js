@@ -123,17 +123,25 @@ gulp.task('watch', function(){
   )
 });
 
+var runSequence  = require('run-sequence')
+
 // Default task. Development Phase
 gulp.task('default', function(callback){
-
-  // Dependencies
-  var runSequence  = require('run-sequence')
-
   runSequence(
     'clean:dev',
     ['sprites', 'lint:js', 'lint:scss'],
     ['sass', 'nunjucks'],
     ['serve', 'watch'],
+    callback
+  )
+})
+
+// Travis specific task without watch and browserSync
+gulp.task('dev-ci', function(callback){
+  runSequence(
+    'clean:dev',
+    ['sprites', 'lint:js', 'lint:scss'],
+    ['sass', 'nunjucks'],
     callback
   )
 })
