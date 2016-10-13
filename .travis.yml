@@ -1,3 +1,7 @@
+install:
+  - "npm install"
+  - "npm install bower -g"
+  - "bower install"
 language: node_js
 node_js:
   - "6.3.0"
