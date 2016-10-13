@@ -1,19 +1,19 @@
 {
   "name": "automate",
   "version": "1.0.0",
-  "description": "",
+  "description": "Automate your workflow based on Zell Liew book",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "bower install && npm install && gulp",
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/mlunatico/automate.git"
+    "url": "git+ssh://git@github.com:uxmoon/automate-workflow.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Martin Luna",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/mlunatico/automate#readme",
+  "homepage": "https://github.com/uxmoon/automate-workflow",
   "devDependencies": {
     "browser-sync": "^2.17.2",
     "del": "^2.2.2",
