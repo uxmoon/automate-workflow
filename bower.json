@@ -1,0 +1,21 @@
+{
+  "name": "automate",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Martin Luna <martin.luna@rga.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "susy": "^2.2.12"
+  }
+}

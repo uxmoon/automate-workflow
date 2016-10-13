@@ -1,0 +1,9 @@
+<!-- template -->
+{% extends "layout.nunjucks" %}
+
+<!-- Partial -->
+{% block content %}
+  <h1>This is the About page</h1>
+  {% import "macros/nav-macro.nunjucks" as nav %}
+  {{nav.active('about')}}
+{% endblock %}

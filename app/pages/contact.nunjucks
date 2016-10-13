@@ -1,0 +1,16 @@
+<!-- template -->
+{% extends "layout.nunjucks" %}
+
+<!-- Partial -->
+{% block content %}
+  <h1>This is the Contact page</h1>
+  {% import "macros/nav-macro.nunjucks" as nav %}
+  {{nav.active('contact')}}
+  <form action="">
+    <div>
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name">
+    </div>
+    <input type="submit" value="Send">
+  </form>
+{% endblock %}

@@ -1,0 +1,22 @@
+# Gitignore file
+
+# Thumbnail cache files
+.DS_Store
+Desktop.ini
+profile
+._*
+Thumbs.db
+
+# ignore packages
+node_modules
+bower_components
+
+# ignore sublime projects
+*.sublime-project
+*.sublime-workspace
+
+#ignore generated files and folders
+*.log
+*.html
+*.css
+dist
