@@ -9,9 +9,7 @@ before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
 script:
-  - "gulp"
   - "gulp test"
-
 notifications:
   email:
     - uxmoon@gmail.com
