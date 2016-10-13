@@ -19,4 +19,5 @@ bower_components
 *.log
 *.html
 *.css
+*.map
 dist
