@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Automate your workflow based on Zell Liew book",
   "main": "index.js",
-  "scripts": {
-    "test": "gulp test"
-  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com:uxmoon/automate-workflow.git"
