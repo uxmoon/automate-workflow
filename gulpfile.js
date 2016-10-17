@@ -214,16 +214,16 @@ gulp.task('test', function(done) {
 // Optimization Phase
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-var useref = require('gulp-useref');
-var uglify = require('gulp-uglify');
-var debug = require('gulp-debug');
-var cached = require('gulp-cached');
-var uncss = require('gulp-uncss');
-var cssnano = require('gulp-cssnano');
-var imagemin = require('gulp-imagemin');
-var newer = require('gulp-newer');
-
+// CSS: uncss and cssnano, JS: concat with useref and uglify
 gulp.task('useref', function() {
+
+  var useref = require('gulp-useref');
+  var uglify = require('gulp-uglify');
+  var debug = require('gulp-debug');
+  var cached = require('gulp-cached');
+  var uncss = require('gulp-uncss');
+  var cssnano = require('gulp-cssnano');
+
   return gulp.src('app/*.html')
     .pipe(useref())
     .pipe(cached('useref'))
@@ -241,12 +241,23 @@ gulp.task('useref', function() {
     .pipe(gulp.dest('dist'))
 });
 
+
+
+
+
+// Images
 gulp.task('images', function() {
+
+  var imagemin = require('gulp-imagemin');
+  var newer = require('gulp-newer');
+  var cache = require('gulp-cache');
+
   // source
   return gulp.src('app/images/**/*.+(png|jpg|jpeg|gif|svg)')
     // Speeding opt process via Comparing timestamps
-    .pipe(newer('dist/images'))
-    .pipe(imagemin({
+    // .pipe(newer('dist/images'))
+    // Speeding opt process via cache
+    .pipe(cache(imagemin({
       interlaced: true,
       progressive: true,
       optimizationLevels: 5,
@@ -255,7 +266,7 @@ gulp.task('images', function() {
         {'removeTitle': true},
         {'removeUselessStrokeAndFill': false}
       ]
-    }))
+    })))
     // output
     .pipe(gulp.dest('dist/images'))
 });
