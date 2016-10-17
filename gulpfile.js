@@ -223,6 +223,8 @@ gulp.task('useref', function() {
   var cached = require('gulp-cached');
   var uncss = require('gulp-uncss');
   var cssnano = require('gulp-cssnano');
+  var rev = require('gulp-rev');
+  var revReplace = require('gulp-rev-replace');
 
   return gulp.src('app/*.html')
     .pipe(useref())
@@ -238,6 +240,9 @@ gulp.task('useref', function() {
       ]
     })))
     .pipe(gulpIf( '*.css', cssnano() ))
+    .pipe(gulpIf( '*.js', rev() ))
+    .pipe(gulpIf( '*.css', rev() ))
+    .pipe(revReplace())
     .pipe(gulp.dest('dist'))
 });
 
