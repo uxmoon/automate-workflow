@@ -1,8 +1,8 @@
-var gulp         = require('gulp');
-var plumber      = require('gulp-plumber');
-var notify       = require('gulp-notify');
-var browserSync  = require('browser-sync');
-
+var gulp         = require('gulp'),
+    plumber      = require('gulp-plumber'),
+    notify       = require('gulp-notify'),
+    browserSync  = require('browser-sync'),
+    gulpIf       = require('gulp-if');
 
 
 
@@ -59,7 +59,6 @@ gulp.task('sprites', function() {
 
   // Dependencies
   var spritesmith  = require('gulp.spritesmith');
-  var gulpIf       = require('gulp-if');
 
   gulp.src('app/images/sprites/**/*')
   .pipe(spritesmith({
@@ -205,4 +204,22 @@ gulp.task('test', function(done) {
     configFile: process.cwd() + '/karma.conf.js',
     singleRun: true
   }, done).start();
-})
+});
+
+
+
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// Optimization Phase
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+var useref = require('gulp-useref');
+var uglify = require('gulp-uglify');
+
+gulp.task('useref', function() {
+  return gulp.src('app/*.html')
+    .pipe(useref())
+    .pipe(gulpIf( '*.js', uglify() ))
+    .pipe(gulp.dest('dist'))
+});
