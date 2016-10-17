@@ -216,10 +216,14 @@ gulp.task('test', function(done) {
 
 var useref = require('gulp-useref');
 var uglify = require('gulp-uglify');
+var debug = require('gulp-debug');
+var cached = require('gulp-cached');
 
 gulp.task('useref', function() {
   return gulp.src('app/*.html')
     .pipe(useref())
+    .pipe(cached('useref'))
+    .pipe(debug())
     .pipe(gulpIf( '*.js', uglify() ))
     .pipe(gulp.dest('dist'))
 });
