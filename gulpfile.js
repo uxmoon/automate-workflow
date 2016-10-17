@@ -220,6 +220,8 @@ var debug = require('gulp-debug');
 var cached = require('gulp-cached');
 var uncss = require('gulp-uncss');
 var cssnano = require('gulp-cssnano');
+var imagemin = require('gulp-imagemin');
+var newer = require('gulp-newer');
 
 gulp.task('useref', function() {
   return gulp.src('app/*.html')
@@ -237,4 +239,23 @@ gulp.task('useref', function() {
     })))
     .pipe(gulpIf( '*.css', cssnano() ))
     .pipe(gulp.dest('dist'))
+});
+
+gulp.task('images', function() {
+  // source
+  return gulp.src('app/images/**/*.+(png|jpg|jpeg|gif|svg)')
+    // Speeding opt process via Comparing timestamps
+    .pipe(newer('dist/images'))
+    .pipe(imagemin({
+      interlaced: true,
+      progressive: true,
+      optimizationLevels: 5,
+      multipass: true,
+      SVGOPlugins: [
+        {'removeTitle': true},
+        {'removeUselessStrokeAndFill': false}
+      ]
+    }))
+    // output
+    .pipe(gulp.dest('dist/images'))
 });
