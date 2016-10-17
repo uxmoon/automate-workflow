@@ -7,7 +7,9 @@
   <meta name="description" content="Automate Your Workflow">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <!-- build:css css/styles.min.css -->
   <link rel="stylesheet" href="css/main.css">
+  <!-- endbuild -->
 </head>
 <body>
 

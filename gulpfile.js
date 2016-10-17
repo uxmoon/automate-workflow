@@ -218,6 +218,7 @@ var useref = require('gulp-useref');
 var uglify = require('gulp-uglify');
 var debug = require('gulp-debug');
 var cached = require('gulp-cached');
+var uncss = require('gulp-uncss');
 
 gulp.task('useref', function() {
   return gulp.src('app/*.html')
@@ -225,5 +226,13 @@ gulp.task('useref', function() {
     .pipe(cached('useref'))
     .pipe(debug())
     .pipe(gulpIf( '*.js', uglify() ))
+    .pipe(gulpIf( '*.css', uncss({
+      html: ['app/*.html'],
+      ignore: [
+        '.susy',
+        /.is-/,
+        /.has-/
+      ]
+    })))
     .pipe(gulp.dest('dist'))
 });

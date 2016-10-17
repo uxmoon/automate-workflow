@@ -34,7 +34,26 @@
 }
 
 // susy
+
 @import 'susy/sass/susy';
 .susy {
   @include span(2);
+}
+
+/* uncss:ignore */
+.ignored-selector {
+  display: none;
+}
+
+.removed {
+  display: block;
+}
+
+.has-border {
+  border-top: 1px solid $color-black;
+}
+
+.is-active {
+  background-color: $color-black;
+  color: $color-white;
 }
