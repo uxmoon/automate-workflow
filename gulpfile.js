@@ -275,3 +275,35 @@ gulp.task('images', function() {
     // output
     .pipe(gulp.dest('dist/images'))
 });
+
+
+
+
+
+// Copy files
+gulp.task('fonts', function() {
+  return gulp.src('app/fonts/**/*')
+    .pipe(gulp.dest('dist/fonts'))
+});
+
+
+
+
+
+// Cleaning the dist folder
+gulp.task('clean:dist', function() {
+  return del.sync(['dist']);
+});
+
+
+
+
+
+// Chaining tasks
+gulp.task('build', function() {
+  runSequence(
+    ['clean:dev', 'clean:dist'],
+    ['useref', 'images', 'fonts'],
+    callback
+  );
+});
