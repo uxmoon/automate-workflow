@@ -219,6 +219,7 @@ var uglify = require('gulp-uglify');
 var debug = require('gulp-debug');
 var cached = require('gulp-cached');
 var uncss = require('gulp-uncss');
+var cssnano = require('gulp-cssnano');
 
 gulp.task('useref', function() {
   return gulp.src('app/*.html')
@@ -234,5 +235,6 @@ gulp.task('useref', function() {
         /.has-/
       ]
     })))
+    .pipe(gulpIf( '*.css', cssnano() ))
     .pipe(gulp.dest('dist'))
 });
