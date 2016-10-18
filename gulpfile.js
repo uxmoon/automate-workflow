@@ -2,7 +2,8 @@ var gulp         = require('gulp'),
     plumber      = require('gulp-plumber'),
     notify       = require('gulp-notify'),
     browserSync  = require('browser-sync'),
-    gulpIf       = require('gulp-if');
+    gulpIf       = require('gulp-if'),
+    del          = require('del');
 
 
 
@@ -108,8 +109,6 @@ gulp.task('sass', function(){
 
 // Clean task
 gulp.task('clean:dev', function(){
-  var del          = require('del');
-
   return del.sync([
     'app/css',
     'app/*.html'
@@ -300,10 +299,12 @@ gulp.task('clean:dist', function() {
 
 
 // Chaining tasks
-gulp.task('build', function() {
+gulp.task('build', function(callback) {
   runSequence(
     ['clean:dev', 'clean:dist'],
-    ['useref', 'images', 'fonts'],
+    ['sprites', 'lint:js', 'lint:scss'],
+    ['sass', 'nunjucks'],
+    ['useref', 'images', 'fonts', 'test'],
     callback
   );
 });
