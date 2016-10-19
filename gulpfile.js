@@ -288,7 +288,10 @@ gulp.task('fonts', function() {
 
 // Cleaning the dist folder
 gulp.task('clean:dist', function() {
-  return del.sync(['dist']);
+  return del.sync([
+    'dist/**/*',
+    '!dist/images/sprites/**/*'
+  ]);
 });
 
 
