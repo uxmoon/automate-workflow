@@ -305,3 +305,22 @@ gulp.task('build', function(callback) {
     callback
   );
 });
+
+// Deployment
+var rsync = require('rsyncwrapper');
+
+gulp.task('rsync', function() {
+  rsync({
+    src: 'dist/',
+    dest: 'uxmoon@s172456.gridserver.com:domains/uxmoon.xyz/html',
+    ssh: true,
+    recursive: true,
+    deleteAll: true
+  }, function(error, stdout, stderr, cmd) {
+      if (error) {
+        console.log(error.message);
+        console.log(stdout);
+        console.log(stderr);
+      }
+    });
+});
