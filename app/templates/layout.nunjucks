@@ -10,6 +10,8 @@
   <!-- build:css css/styles.min.css -->
   <link rel="stylesheet" href="css/main.css">
   <!-- endbuild -->
+  <link type="text/plain" rel="author" href="http://domain/humans.txt" />
+
 </head>
 <body>
 
