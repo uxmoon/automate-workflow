@@ -78,7 +78,7 @@ gulp.task('serve', function() {
     server: {
       baseDir: './app'
     },
-    browser: ["google chrome", "firefox"]
+    browser: "google chrome"
   })
 });
 
