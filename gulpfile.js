@@ -3,7 +3,8 @@ var gulp         = require('gulp'),
     notify       = require('gulp-notify'),
     browserSync  = require('browser-sync').create(),
     gulpIf       = require('gulp-if'),
-    del          = require('del');
+    del          = require('del'),
+    fs           = require('fs');
 
 
 
@@ -39,7 +40,6 @@ gulp.task('nunjucks', function(){
   // Dependencies
   var nunjucksRender = require('gulp-nunjucks-render');
   var data           = require('gulp-data');
-  var fs             = require('fs');
 
   return gulp.src('app/pages/**/*.+(html|nunjucks)')
     .pipe(customPlumber('Error running Nunjucks'))
@@ -306,21 +306,54 @@ gulp.task('build', function(callback) {
   );
 });
 
-// Deployment
-var rsync = require('rsyncwrapper');
+// Deployment using ssh
 
-gulp.task('rsync', function() {
-  rsync({
-    src: 'dist/',
-    dest: 'uxmoon@s172456.gridserver.com:domains/uxmoon.xyz/html',
-    ssh: true,
-    recursive: true,
-    deleteAll: true
-  }, function(error, stdout, stderr, cmd) {
+if (!process.env.CI) {
+
+  var rsync = require('rsyncwrapper');
+
+  gulp.task('rsync', function() {
+    rsync({
+      src: './dist/',
+      dest: creds.dest,
+      ssh: true,
+      recursive: true,
+      deleteAll: true
+    },
+    function(error, stdout, stderr, cmd) {
       if (error) {
         console.log(error.message);
         console.log(stdout);
         console.log(stderr);
       }
     });
-});
+  });
+
+
+  // Deployment using FTP
+  var ftp = require('vinyl-ftp');
+  var gutil = require( 'gulp-util' );
+  var creds = JSON.parse(fs.readFileSync('./secrets.json'));
+
+  var conn = ftp.create({
+    host: creds.server,
+    user: creds.username,
+    password: creds.password,
+    parallel: 10,
+    log: gutil.log
+  });
+
+  gulp.task('ftp', function() {
+    return gulp.src('dist/**/*')
+      .pipe(conn.dest(creds.remotePath));
+  });
+
+  gulp.task('ftp-clean', function(cb){
+    conn.rmdir(creds.remotePath, function(err) {
+      if(err) {
+        console.log(err);
+      }
+    });
+  });
+
+} // end process.env.CI

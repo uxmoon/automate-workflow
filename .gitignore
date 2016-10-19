@@ -22,3 +22,6 @@ bower_components
 *.map
 dist
 app/css
+
+# credentials
+secrets.json
