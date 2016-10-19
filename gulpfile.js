@@ -1,7 +1,7 @@
 var gulp         = require('gulp'),
     plumber      = require('gulp-plumber'),
     notify       = require('gulp-notify'),
-    browserSync  = require('browser-sync'),
+    browserSync  = require('browser-sync').create(),
     gulpIf       = require('gulp-if'),
     del          = require('del');
 
@@ -50,9 +50,7 @@ gulp.task('nunjucks', function(){
       path: ['app/templates']
     }))
     .pipe(gulp.dest('app'))
-    .pipe(browserSync.reload({
-      stream: true
-    }));
+    .pipe(browserSync.stream())
 });
 
 // Sprites
@@ -76,11 +74,11 @@ gulp.task('sprites', function() {
 
 // BrowserSync
 gulp.task('serve', function() {
-  browserSync({
+  browserSync.init({
     server: {
-      baseDir: 'app'
+      baseDir: './app'
     },
-    browser: "firefox"
+    browser: ["google chrome", "firefox"]
   })
 });
 
@@ -102,9 +100,7 @@ gulp.task('sass', function(){
     }))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('app/css'))
-    .pipe(browserSync.reload({
-      stream: true
-    }))
+    .pipe(browserSync.stream())
 });
 
 // Clean task
@@ -117,12 +113,13 @@ gulp.task('clean:dev', function(){
 
 // Watch Tasks
 
-gulp.task('watch-js', ['lint:js'], browserSync.reload);
+// gulp.task('watch-js', ['lint:js'], browserSync.reload);
+gulp.task('watch-js', ['lint:js']).on('change', browserSync.reload);
 
 gulp.task('watch', function(){
   gulp.watch('app/scss/**/*.scss', ['sass', 'lint:scss']);
   gulp.watch('app/js/**/*.js', ['watch-js']);
-  gulp.watch('app/*.html', browserSync.reload);
+  // gulp.watch('app/*.html').on('change', browserSync.reload);
   gulp.watch([
     'app/templates/**/*',
     'app/pages/**/*.+(html|nunjucks)',

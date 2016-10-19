@@ -1,16 +1,16 @@
 {
-  "images": [
-    {
-      "src": "image-one.png",
-      "alt": "image one alt"
-    },
-    {
-      "src": "image-two.png",
-      "alt": "image two alt"
-    },
-    {
-      "src": "image-three.png",
-      "alt": "image three"
-    }
-  ]
+   "images":[
+      {
+         "src":"images/image-one.jpg",
+         "alt":"image 1"
+      },
+      {
+         "src":"images/image-two.jpg",
+         "alt":"image 2"
+      },
+      {
+         "src":"images/image-three.jpg",
+         "alt":"image 3"
+      }
+   ]
 }

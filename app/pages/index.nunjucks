@@ -1,17 +1,12 @@
-<!-- template -->
 {% extends "layout.nunjucks" %}
 
-<!-- Partial -->
 {% block content %}
   <h1>This is the Home page</h1>
 
-  <!-- nav -->
   {% import "macros/nav-macro.nunjucks" as nav %}
-  <!-- nav with active class for home link -->
   {{nav.active('home')}}
 
   <div class="gallery">
-    <!-- Loops through images array -->
     {% for image in images %}
     <div class="gallery__item">
       <img src="{{image.src}}" alt="{{image.alt}}">
